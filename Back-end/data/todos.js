@@ -3,4 +3,4 @@ const todos =[
     {todo: "study French", when:"Wednesday"},
     {todo: "learn Redux", when: "Tuesday"},
 ]
-export { todos };
+module.exports = {todos};
