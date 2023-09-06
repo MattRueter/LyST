@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { todoSlice } from './reducers/todoReducer';
+import { fetchTodosSlice } from './reducers/fetchTodos_reducer';
+import { addTodosSlice } from './reducers/addTodos_reducer';
 
 const store = configureStore({
     reducer: {
-        todoReducer: todoSlice.reducer,
+        fetchTodosReducer : fetchTodosSlice.reducer,
+        addTodosReducer : addTodosSlice.reducer,
     }
 });
 

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchTodos } from '../../../Redux/reducers/todoReducer';
+import { fetchTodosByUserid, fetchTodosByCriteria } from '../../../Redux/reducers/fetchTodos_reducer';
 import { useEffect } from 'react';
 
 
@@ -7,10 +7,12 @@ import { useEffect } from 'react';
 function TodoList () {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
-  const todos = state.todoReducer.todos;
-
+  const todos = state.fetchTodosReducer.todos;
+  
   useEffect(() =>{
-    dispatch(fetchTodos());
+    dispatch(fetchTodosByUserid("555"));
+    //dispatch(fetchTodosByCriteria({uid:"555", route:"byproject", criteria:"languages"}));
+
   },[]);
 
   const todoNames = todos.map((item)=>{

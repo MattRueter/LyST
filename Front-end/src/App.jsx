@@ -1,15 +1,25 @@
-import { useState } from 'react'
 import './CSS/app.css';
-import TodoList from './Pages/_home/_components/Todolist';
+import HomePage from './Pages/_home/_pages/HomePage';
+import LoginPage from './Pages/_login/_pages/LoginPage';
+
+const isLoggedin= true;
 
 function App() {
-  return (
-    <>
-      <h1>Hello</h1>
-      <h2>...Matt.</h2>
-      <TodoList />
-    </>
-  )
-}
+  //could show login in unless user is authenticated.
+  // if authenticated render HomePage
+  if(isLoggedin){
+    return(
+      <>
+        <HomePage />
+      </>
+    )
+  }else{
+    return (
+      <>
+        <LoginPage />
+      </>
+    )
+  }
+};
 
 export default App
