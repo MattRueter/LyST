@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const getTodosRouter = require("./Routes/get_books_route");
+const getTodosRouter = require("./Routes/get_todos_route");
+const addTodosRouter = require("./Routes/add_todos_route");
 const { todos } = require("./data/todos");
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(morgan("tiny"));
 
 //Routes
 app.use("/gettodos", getTodosRouter);
+app.use("/addtodo", addTodosRouter);
 app.get("/", (req,res) => {
     res.send("TODO back-end up and running.")
 });
