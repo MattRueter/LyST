@@ -1,6 +1,6 @@
 const users =[
-    {uid: 555, username:"matt", role:"admin"},
-    {uid:777, username: "vic", role:"user"}
+    {uid: 555, email:"matthewrueter51@gmail.com", username:"matt", password:"monkey"},
+    {uid:777, email:"victoria31@gmail.com", username: "vic", password:"bear"},
 ]
 
 export {users};
