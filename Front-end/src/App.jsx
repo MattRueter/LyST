@@ -1,14 +1,12 @@
 import { useState } from 'react'
-import './App.css'
-import TodoList  from "./components/Todolist";
+import './CSS/app.css';
+import TodoList from './Pages/_home/_components/Todolist';
 
 function App() {
   return (
     <>
       <h1>Hello</h1>
-      <h2>...there.</h2>
-      <p>I'm Matt.</p>
-      <p>And I'm learning yet another thing.</p>
+      <h2>...Matt.</h2>
       <TodoList />
     </>
   )
