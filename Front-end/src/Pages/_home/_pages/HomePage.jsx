@@ -9,6 +9,7 @@ function HomePage (){
     const toggleDisplay = () => {
         addTodoFormDisplay === "hidden" ? setAddTodoFormDisplay("showing") : setAddTodoFormDisplay("hidden");
     };
+    
     return(
         <>
             <Navbar toggleDisplay={toggleDisplay}/>

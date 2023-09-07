@@ -31,6 +31,9 @@ export const fetchTodosSlice = createSlice({
         [fetchTodosByUserid.fulfilled] : (state,action) =>{
             state.todos = action.payload
         },
+        [fetchTodosByUserid.pending] : (state,action) =>{
+            state.todds = [{todo:"loading todos"}]
+        },
         [fetchTodosByUserid.rejected] : (state,action) =>{
             state.todos = [{todo:"Failed to load. Check connection"}]
         },
@@ -40,3 +43,4 @@ export const fetchTodosSlice = createSlice({
     }
 });
 
+export const {filterTodos} = fetchTodosSlice.actions
