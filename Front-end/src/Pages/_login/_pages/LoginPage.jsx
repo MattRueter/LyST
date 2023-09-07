@@ -2,11 +2,10 @@ import LoginForm from "../_components/LoginForm";
 
 function LoginPage () {
     return(
-        <>
+        <div id="loginpage">
             <h1>Lyst</h1>
-            <h2>login or sign-up</h2>
             <LoginForm />
-        </>
+        </div>
     )
 }
 
