@@ -10,6 +10,14 @@ function Navbar ({toggleDisplay}) {
     const user = "M"
     const time = "15:34"
 
+    const toggleTheme = (e) => {
+        const theme = e.target.value;
+        const root = document.documentElement;
+     
+        root.className = theme;
+
+    };
+
     return(
         <>
         <nav>
@@ -26,7 +34,7 @@ function Navbar ({toggleDisplay}) {
 
                 <FormControl sx={{width:"40%" }} size="small">
                     <InputLabel sx={{fontSize:"medium"}} id="demo-simple-select-label" variant="standard">Settings</InputLabel>
-                    <Select value="">
+                    <Select  onChange={toggleTheme} value="">
                         <InputLabel sx={{color:"lightblue"}}>Theme:</InputLabel>
                         <MenuItem value="dark">Dark</MenuItem>
                         <MenuItem value="light">Light</MenuItem>

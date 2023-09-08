@@ -1,21 +1,47 @@
-
-
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #304558;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-}
 
+  --background-color-primary:white;
+  --background-color-secondary: #ccdbe8;
+  --background-color-accessories: #a6c2dd;
+  --box-shadow: 1px 1px 1px#98b5cd;
+}
+:root.light{
+  color: #304558;
+  --background-color-primary:white;
+  --background-color-secondary: #ccdbe8;
+  --background-color-accessories: #a6c2dd;
+  --box-shadow: 1px 1px 1px#98b5cd;
+}
+:root.dark{
+  color:whitesmoke;
+  --background-color-primary:#213547;
+  --background-color-secondary: #16344c;
+  --background-color-accessories: #add8e6;
+  --box-shadow:1px 1px 1px #4f6b83;
+}
+:root.cremeBrulee{
+  color:whitesmoke;
+  --background-color-primary:#808816;
+  --background-color-secondary: #a4a613;
+  --background-color-accessories: #415103;
+  --box-shadow:1px 1px 1px #4f6b83;
+}
+body{
+  background-color: var(--background-color-primary);
+  height: 100vh;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -40,7 +66,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--background-color-accessories);
   margin:1%;
   cursor: pointer;
   transition: border-color 0.25s;
@@ -53,6 +79,7 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/*
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -65,3 +92,4 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+*/
