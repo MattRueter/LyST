@@ -8,12 +8,26 @@ form{
   display:flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
+  
 }
 #addTodoForm{
   border:1px solid black;
   background-color: white;
   position: fixed;
+  margin:2%;
   padding:2%;
+}
+.break{
+  color:lightblue;
+}
+.msgHidden{
+  display:none;
+  color:rgb(56, 117, 230);
+  font-size: large;
+}
+.msgShowing{
+  display:block;
 }
 .hidden{
   display: none;
@@ -41,9 +55,6 @@ margin: 1%;
 
 }
 
-select{
-  border:none;
-}
 
 
 /* LOGIN PAGE*/
