@@ -1,21 +1,23 @@
 import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
 import PlaylistAddOutlinedIcon from '@mui/icons-material/PlaylistAddOutlined';
-import AddBoxTwo from '@mui/icons-material/AddBox';
 import {FormControl, Select, InputLabel, Menu,Popper, Paper,MenuItem, Button,Avatar, MenuList } from '@mui/material';
 import FilterMenu from './FilterMenu';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeTheme } from '../../../Redux/reducers/themeReducer';
+
 
 
 
 function Navbar ({toggleDisplay}) {
+    const dispatch = useDispatch();
+    const state = useSelector((state) =>state.themeReducer.theme)
+    const theme = state;
     const user = "M"
-    const time = "15:34"
-
+    const time = "Clock"
+  
     const toggleTheme = (e) => {
         const theme = e.target.value;
-        const root = document.documentElement;
-     
-        root.className = theme;
-
+        dispatch(changeTheme(theme))
     };
 
     return(
@@ -27,19 +29,20 @@ function Navbar ({toggleDisplay}) {
                 <FilterMenu/>                          
             </div>
 
-            <button onClick={toggleDisplay}><PlaylistAddOutlinedIcon fontSize="large" color="primary"/></button>
+            <button onClick={toggleDisplay}><PlaylistAddOutlinedIcon fontSize="large" /></button>
 
             <div className="navSection">
                 <Avatar sx={{bgcolor:"lightblue"}} >{user}</Avatar>
 
-                <FormControl sx={{width:"40%" }} size="small">
-                    <InputLabel sx={{fontSize:"medium"}} id="demo-simple-select-label" variant="standard">Settings</InputLabel>
-                    <Select  onChange={toggleTheme} value="">
-                        <InputLabel sx={{color:"lightblue"}}>Theme:</InputLabel>
+                <FormControl variant="standard"  size="small">
+                    <InputLabel  id="demo-simple-select-label" ><SettingsTwoToneIcon sx={theme.labels}/></InputLabel>
+                    <Select onChange={toggleTheme} value="">
+                        <InputLabel sx={theme.labels}>Theme:</InputLabel>
                         <MenuItem value="dark">Dark</MenuItem>
                         <MenuItem value="light">Light</MenuItem>
-                        <InputLabel sx={{color:"lightblue"}}>_______________________</InputLabel>
-                        <MenuItem value="logout">Logout</MenuItem>
+                        <MenuItem value="cherry">Cherry</MenuItem>
+                        <InputLabel sx={theme.labels}>_______________________</InputLabel>
+                        <MenuItem  value="logout">Logout</MenuItem>
                     </Select>
                 </FormControl>
             </div>

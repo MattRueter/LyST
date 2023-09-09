@@ -1,13 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchTodosByUserid, fetchTodosByCriteria } from '../../../Redux/reducers/fetchTodos_reducer';
 import { useEffect } from 'react';
-
-
+import Todo from './Todo';
 
 function TodoList () {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
-  const todos = state.fetchTodosReducer.todos;
   
   useEffect(() =>{
     dispatch(fetchTodosByUserid("555"));
@@ -15,16 +13,12 @@ function TodoList () {
 
   },[]);
 
-  const todoNames = todos.map((item)=>{
-    return(
-      <li>{item.todo}</li>
-    )
-  });
-
   return(
     <>
-      <h3>TODO:</h3>
-      <ul>{todoNames}</ul>
+      <h3>View criteria here:</h3>
+      <ol>
+        <Todo/>
+        </ol>
     </>
   )
 };

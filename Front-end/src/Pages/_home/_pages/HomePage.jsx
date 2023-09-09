@@ -15,8 +15,8 @@ function HomePage (){
             <Navbar toggleDisplay={toggleDisplay}/>
         <main>
             <AddTodoForm display={addTodoFormDisplay} />
-            <h1>Hello</h1>
-            <h2>...Matt.</h2>
+            <h1>LyST</h1>
+            <h2>Hello Matt</h2>
             <Todolist />
         </main>
         </>

@@ -21,6 +21,7 @@
   color: #304558;
   --background-color-primary:white;
   --background-color-secondary: #ccdbe8;
+  --background-color-modals: whitesmoke;
   --background-color-accessories: #a6c2dd;
   --box-shadow: 1px 1px 1px#98b5cd;
 }
@@ -28,19 +29,20 @@
   color:whitesmoke;
   --background-color-primary:#213547;
   --background-color-secondary: #16344c;
+  --background-color-modals: #213547;
   --background-color-accessories: #add8e6;
   --box-shadow:1px 1px 1px #4f6b83;
 }
-:root.cremeBrulee{
-  color:whitesmoke;
-  --background-color-primary:#808816;
-  --background-color-secondary: #a4a613;
-  --background-color-accessories: #415103;
-  --box-shadow:1px 1px 1px #4f6b83;
+:root.cherry{
+  color:rgb(231, 178, 178);
+  --background-color-primary:#330206;
+  --background-color-secondary: #4e1217;
+  --background-color-modals: #e44e5a;
+  --background-color-accessories: #eeadb2;
+  --box-shadow:1px 1px 1px #f55461;
 }
 body{
   background-color: var(--background-color-primary);
-  height: 100vh;
 }
 a {
   font-weight: 500;
