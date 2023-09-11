@@ -1,19 +1,18 @@
 import express from "express";
-import todos from "../data/todos.js";
+import { ObjectId } from "mongodb";
+import db from "../data/conn.js";
 
 const deleteTodosRouter = express.Router();
+const currentCollection = "todos";
 
-deleteTodosRouter.delete("/:todoId", (req,res)=>{
-    const id = Number(req.params.todoId);
-    //This will be replaced with DB query to delete an document using document id.
-    //IT WON'T RETURN AN ENTIRE COPY OF COLLECTION only the deleted item if we want to use it.
-    for(let i=0; i<todos.length; i++){
-        if(todos[i].id === id){
-            //remove
-            const deleted = todos.splice(i,1);
-        }
-    }
-    res.json(todos);
+deleteTodosRouter.delete("/:todoId", async (req,res)=>{
+    const id = req.params.todoId;
+    const query = {_id : new ObjectId(id) };
+
+    const collection = await db.collection(currentCollection);
+    const deletedTodo = await collection.deleteOne(query);
+ 
+    res.json(deletedTodo);
 });
 
 export default deleteTodosRouter;

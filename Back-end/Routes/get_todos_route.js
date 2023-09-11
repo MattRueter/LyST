@@ -1,51 +1,62 @@
 import express from "express";
-import todos from "../data/todos.js";
+import db from "../data/conn.js";
 
 const getTodosRouter = express.Router();
+const currentUser = "64ff27036484f5406876fbe9";
+const currentCollection = "todos";
 
-getTodosRouter.get("/:userid", (req,res) => {
-    const user = req.params.userid;
-    //below will be replaced by fetching to DB
-    const todoList = todos.filter(item => item.owner === user)
+
+getTodosRouter.get("/", async (req,res) => {
+    const user = currentUser;
+    const query = { owner : user};
+    
+    const collection = await db.collection(currentCollection);
+    const todoList = await collection.find(query).toArray();
    
     res.json(todoList);
 });
 
-getTodosRouter.get("/:userid/bydate/:date", (req, res) => {
-    const user = req.params.userid;
+getTodosRouter.get("/bydate/:date", async (req, res) => {
+    const user = currentUser;
     const date = req.params.date;
-    //below will be replaced by fetching to DB
-    const todoList = todos.filter((item) => item.owner === user && item.due === date); 
+    const query = { owner:user, due:date }
+    
+    const collection = await db.collection(currentCollection);
+    const todoList = await collection.find(query).toArray();
     
     res.json(todoList)
 });
 
-getTodosRouter.get("/:userid/byproject/:project", (req, res) => {
-    const user = req.params.userid;
+getTodosRouter.get("/byproject/:project", async (req, res) => {
+    const user = currentUser;
     const project = req.params.project;
-    //below will be replaced by fetching to DB
-    const todoList = todos.filter((item) => item.owner === user && item.projects.includes(project)); 
+    const query = { owner : user, projects : project }
+
+    const collection = await db.collection(currentCollection);
+    const todoList = await collection.find(query).toArray();
     
     res.json(todoList)
 });
 
-getTodosRouter.get("/:userid/bypriority/:priority", (req, res) => {
-    const user = req.params.userid;
+getTodosRouter.get("/bypriority/:priority", async (req, res) => {
+    const user = currentUser;
     const priority = req.params.priority;
-    //below will be replaced by fetching to DB
-    const todoList = todos.filter((item) => item.owner === user && item.priority === priority); 
-    
+    const query = { owner : user, priority:priority };
+
+    const collection = await db.collection(currentCollection);
+    const todoList = await collection.find(query).toArray();
+
     res.json(todoList)
 });
 
-getTodosRouter.get("/:userid/bystatus/:isfinished", (req, res) => {
-    const user = req.params.userid;
+getTodosRouter.get("/bystatus/:isfinished", async (req, res) => {
+    const user = currentUser;
     let isFinished = req.params.isfinished;
-    //let isFinished = req.query.isfinished;
     isFinished === 'true' ? isFinished = true :isFinished = false;
+    const query = { owner : user, finished : isFinished }
     
-    //below will be replaced by fetching to DB
-    const todoList = todos.filter((item) => item.owner === user && item.finished === isFinished); 
+    const collection = await db.collection(currentCollection);
+    const todoList = await collection.find(query).toArray();
     
     res.json(todoList)
 });

@@ -1,15 +1,19 @@
 import express from "express";
-import todos from "../data/todos.js";
+import db from "../data/conn.js";
 
 const addTodosRouter = express.Router();
+const currentUser = "64ff27036484f5406876fbe9";
+const currentCollection = "todos";
 
-addTodosRouter.post("/:newtodo", (req,res,) =>{
-    let newTodo = JSON.parse(req.params.newtodo);
-    newTodo.id = todos[todos.length-1].id+1
-    todos.push(newTodo)
+addTodosRouter.post("/:newTodo", async (req,res) => {
+    const user = currentUser;
+    let newTodo = JSON.parse(req.params.newTodo);
+    newTodo.owner = user;
 
-    res.send(newTodo)
+    const collection = await db.collection(currentCollection);
+    const todoList = await collection.insertOne(newTodo)
+
+    res.json(todoList)
 });
-
 
 export default addTodosRouter;

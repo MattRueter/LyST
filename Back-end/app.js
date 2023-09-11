@@ -1,6 +1,7 @@
 import express from "express";
 import cors from"cors";
 import morgan from "morgan";
+import "./loadEnvironment.js";
 import getTodosRouter from "./Routes/get_todos_route.js";
 import addTodosRouter from "./Routes/add_todos_route.js";
 import deleteTodosRouter from"./Routes/delete_todos_route.js";
@@ -8,7 +9,7 @@ import updateTodosRouter from"./Routes/update_todos_route.js";
 import todos  from "./data/todos.js";
 
 const app = express();
-const PORT = 5000;
+const PORT =  process.env.PORT
 
 //Middleware
 app.use(cors());
