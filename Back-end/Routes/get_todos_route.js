@@ -1,7 +1,7 @@
-const express = require("express");
-const {todos} = require("../data/todos");
-const getTodosRouter =express.Router();
+import express from "express";
+import todos from "../data/todos.js";
 
+const getTodosRouter = express.Router();
 
 getTodosRouter.get("/:userid", (req,res) => {
     const user = req.params.userid;
@@ -38,9 +38,10 @@ getTodosRouter.get("/:userid/bypriority/:priority", (req, res) => {
     res.json(todoList)
 });
 
-getTodosRouter.get("/:userid/bystatus", (req, res) => {
+getTodosRouter.get("/:userid/bystatus/:isfinished", (req, res) => {
     const user = req.params.userid;
-    let isFinished = req.query.isfinished;
+    let isFinished = req.params.isfinished;
+    //let isFinished = req.query.isfinished;
     isFinished === 'true' ? isFinished = true :isFinished = false;
     
     //below will be replaced by fetching to DB
@@ -49,4 +50,4 @@ getTodosRouter.get("/:userid/bystatus", (req, res) => {
     res.json(todoList)
 });
 
-module.exports = getTodosRouter;
+export default getTodosRouter;
