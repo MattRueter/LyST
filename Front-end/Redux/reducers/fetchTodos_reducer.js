@@ -3,7 +3,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
 const initialState = {
-    todos:[{todo:"add a todo"}]
+    todos:[],
+    loading: null,
+    failed: false,
+    success:false
 }
 
 export const fetchTodosByUserid = createAsyncThunk(
@@ -46,16 +49,26 @@ export const fetchTodosSlice = createSlice({
     initialState,
     extraReducers: {
         [fetchTodosByUserid.fulfilled] : (state,action) =>{
+            state.loading = false
+            state.success = true
             state.todos = action.payload
         },
         [fetchTodosByUserid.pending] : (state,action) =>{
-            state.todds = [{todo:"loading todos"}]
+            state.loading = true
         },
         [fetchTodosByUserid.rejected] : (state,action) =>{
-            state.todos = [{todo:"Failed to load. Check connection"}]
-        },
+            state.failed = true
+        },        
         [fetchTodosByCriteria.fulfilled] : ( state, action) =>{
+            state.loading = false
+            state.success = true
             state.todos = action.payload
+        },
+        [fetchTodosByCriteria.pending] : (state,action) => {
+            state.loading = true
+        },
+        [fetchTodosByCriteria.rejected] : (state,action) => {
+            state.failed = true
         },
         [deleteTodo.fulfilled] : (state,action) =>{            
             const id = action.payload;
@@ -63,13 +76,13 @@ export const fetchTodosSlice = createSlice({
             state.todos = newList;   
         },
         [markTodoFinished.fulfilled] :(state, action) => {
-            console.log(action.payload);
             const updatedTodo = action.payload
             // copy state.todos.
             const updatedState = state.todos.map((todo) =>todo);
             
-            // 1. find updatedTodo in state.todos
+            // 1. find updatedTodo in copy of state.todos.
             const index = updatedState.findIndex((item) => item._id === updatedTodo._id);
+
             // 2. replace previous todo with updated version.
             updatedState.splice( index, 1, updatedTodo );
             

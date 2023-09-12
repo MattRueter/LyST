@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState ={
-    todo:"",
+    todo:null,
+    todoName:""
 }
 
 export const postNewTodo = createAsyncThunk(
@@ -10,8 +11,8 @@ export const postNewTodo = createAsyncThunk(
     async(newtodo,thunkAPI) => {
         const newTodoJson = JSON.stringify(newtodo)
         const result = await fetch(`http://localhost:5000/addtodo/${newTodoJson}`, {method:"POST"});
-        const data = await result.json();
-        return data
+        const data = await result
+        return newtodo
     }
 );
 
@@ -29,7 +30,12 @@ export const addTodosSlice = createSlice({
             console.log("waiting to add to db before updating UI.")
         },
         [postNewTodo.fulfilled] : (state, action) =>{
-            state.todo = action.payload.todo
+            const newtodo = action.payload
+            state.todo = newtodo
+            state.todoName = newtodo.todo
+        },
+        [postNewTodo.rejected] : (state, action) =>{
+            console.log("rejected. Check error handling.")
         },
     }
 })
