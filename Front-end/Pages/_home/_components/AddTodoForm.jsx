@@ -1,12 +1,10 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { addTodo, postNewTodo } from "../../../Redux/reducers/addTodos_reducer";
+import { useDispatch } from 'react-redux';
+import { postNewTodo } from "../../../Redux/reducers/addTodos_reducer";
 import { fetchTodosByUserid } from '../../../Redux/reducers/fetchTodos_reducer';
+
 
 function AddTodoForm ({display}) {
     const dispatch = useDispatch();
-    const state = useSelector((state)=>state.addTodosReducer);
-    const newTodo = state.todo;
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
@@ -23,7 +21,7 @@ function AddTodoForm ({display}) {
         <>
             <form id="addTodoForm" className={display} onSubmit={handleSubmit}>
                 <label>Task name:</label>
-                <input name="todo"type="text" placeholder="new todo"></input>
+                    <input name="todo"type="text" placeholder="new todo"></input>
                 <div className="break">________________________________</div>
                 <label>Priority:
                 <div>
@@ -53,7 +51,7 @@ function AddTodoForm ({display}) {
                         <option value="Sunday">Sunday</option>
                     </select>
                 <div className="break">--------------------------------</div>
-                {/*This will map over a user's projects and give the option of selecting one of those
+                {/*This will need to map over a user's projects and give the option of selecting one of those
                 or create a new one.*/}
                 <label>Project</label>
                 <select name="projects" >
@@ -65,7 +63,6 @@ function AddTodoForm ({display}) {
                     </select>
                 <div className="break">--------------------------------</div>
                 <button type="submit">Save</button>
-                <p>{newTodo} has been added </p>
             </form>
         </>
     )

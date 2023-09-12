@@ -13,7 +13,7 @@ function Navbar ({toggleDisplay}) {
     const state = useSelector((state) =>state.themeReducer.theme)
     const theme = state;
     const user = "M"
-    const time = "Clock"
+  
   
     const toggleTheme = (e) => {
         const theme = e.target.value;
@@ -22,18 +22,15 @@ function Navbar ({toggleDisplay}) {
 
     return(
         <>
-        <nav>
-            
+        <nav>            
             <div className="navSection">
-                <div>{time}</div>
                 <FilterMenu/>                          
             </div>
 
             <button onClick={toggleDisplay}><PlaylistAddOutlinedIcon fontSize="large" /></button>
 
-            <div className="navSection">
+            <div className="navSection">                
                 <Avatar sx={{bgcolor:"lightblue"}} >{user}</Avatar>
-
                 <FormControl variant="standard"  size="small">
                     <InputLabel  id="demo-simple-select-label" ><SettingsTwoToneIcon sx={theme.labels}/></InputLabel>
                     <Select onChange={toggleTheme} value="">

@@ -10,20 +10,25 @@ function TodoList () {
   const todos = state.todos;
 
   useEffect(() =>{
-    //fetches ALL of user's todos on updates to state.
     dispatch(fetchTodosByUserid());
   },[]);
 
   const todoCards = todos.map((item) =>{
     let StatusText = checkStatus(item);    
     return(
-      <Todo todo={item.todo} projectName={item.projects} priority={item.priority} id={item._id} status={item.finished} text={StatusText}/>
+      <Todo 
+        key={item._id}
+        todo={item.todo} 
+        projectName={item.projects} 
+        priority={item.priority} 
+        id={item._id} 
+        status={item.finished} 
+        text={StatusText}/>
     )
   });
 
   return(
     <>
-      <h3>View criteria here:</h3>
       <ol>
         {todoCards}
       </ol>

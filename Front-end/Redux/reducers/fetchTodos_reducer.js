@@ -38,15 +38,33 @@ export const deleteTodo = createAsyncThunk(
 
 export const markTodoFinished = createAsyncThunk(
     'todos/markFinished',
-    async(todo, thunkAPI) => {
-        const result = await fetch(`http://localhost:5000/updatetodo/${todo.id}/${todo.status}`, {method:"PUT"});
+    async(todoData, thunkAPI) => {
+        const result = await fetch(`http://localhost:5000/updatetodo/${todoData.id}/${todoData.status}`, {method:"PUT"});
         const data = await result.json();
-        return data //returns the updated document.
+        return data;
     }
 );
 export const fetchTodosSlice = createSlice({
     name: "todos",
     initialState,
+    reducers:{
+        markFinishedUI: (state, action) => {
+            const id = action.payload.id; 
+            let status = action.payload.status;
+            status === true ? status = false : status = true;
+            
+            const stateCopy = state.todos.map((item) =>item);
+            const index = stateCopy.findIndex((item) => item._id === id);
+            stateCopy[index].finished = status;
+
+            state.todos = stateCopy;
+        },
+        deleteUI: (state, action) => {
+            const id = action.payload;
+            const newList = state.todos.filter((item) =>item._id !== id);
+            state.todos = newList;
+        },
+    },
     extraReducers: {
         [fetchTodosByUserid.fulfilled] : (state,action) =>{
             state.loading = false
@@ -75,21 +93,16 @@ export const fetchTodosSlice = createSlice({
             const newList = state.todos.filter((item) =>item.id !== id);
             state.todos = newList;   
         },
+        [markTodoFinished.pending] :(state, action) => {
+            console.log(`item being updated`)
+        },
+        [markTodoFinished.rejected] :(state, action) => {
+            console.log(`rejected`)
+        },
         [markTodoFinished.fulfilled] :(state, action) => {
-            const updatedTodo = action.payload
-            // copy state.todos.
-            const updatedState = state.todos.map((todo) =>todo);
-            
-            // 1. find updatedTodo in copy of state.todos.
-            const index = updatedState.findIndex((item) => item._id === updatedTodo._id);
-
-            // 2. replace previous todo with updated version.
-            updatedState.splice( index, 1, updatedTodo );
-            
-            // 3. make sure state.todos reflects change in UI.
-            state.todos = updatedState;
+            console.log(`marked item as complete or incomplete.`)
         }
     }
 });
 
-export const {filterTodos} = fetchTodosSlice.actions
+export const {filterTodos, markFinishedUI, deleteUI} = fetchTodosSlice.actions
