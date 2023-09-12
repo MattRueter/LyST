@@ -11,9 +11,9 @@ addTodosRouter.post("/:newTodo", async (req,res) => {
     newTodo.owner = user;
 
     const collection = await db.collection(currentCollection);
-    const todoList = await collection.insertOne(newTodo)
+    const result = await collection.insertOne(newTodo)
 
-    res.json(todoList)
+    res.json(result)
 });
 
 export default addTodosRouter;

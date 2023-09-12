@@ -6,14 +6,18 @@ const currentUser = "64ff27036484f5406876fbe9";
 const currentCollection = "todos";
 
 
+
 getTodosRouter.get("/", async (req,res) => {
     const user = currentUser;
     const query = { owner : user};
-    
-    const collection = await db.collection(currentCollection);
-    const todoList = await collection.find(query).toArray();
-   
-    res.json(todoList);
+
+    setTimeout(async() =>{
+        const collection = await db.collection(currentCollection);
+        const todoList = await collection.find(query).toArray();
+
+        res.json(todoList);
+    }, 6000)
+
 });
 
 getTodosRouter.get("/bydate/:date", async (req, res) => {
