@@ -15,14 +15,14 @@ function HomePage (){
     return(
         <>
             <Navbar toggleDisplay={toggleDisplay}/>
-        <main>
-            <AddTodoForm display={addTodoFormDisplay} />
-            <h1>LyST</h1>
-            <h2>Hello Matt</h2>
-            <Loading />
-            <Todolist />
-            <SnackBar />
-        </main>
+            <main>
+                <AddTodoForm display={addTodoFormDisplay} />
+                <h1>LyST</h1>
+                <h2>Hello Matt</h2>
+                <Loading />
+                <Todolist />
+                <SnackBar />
+            </main>
         </>
     )
 }

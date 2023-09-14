@@ -1,21 +1,25 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { postNewTodo } from "../../../Redux/reducers/addTodos_reducer";
 import { fetchTodosByUserid } from '../../../Redux/reducers/fetchTodos_reducer';
 
 
 function AddTodoForm ({display}) {
     const dispatch = useDispatch();
+    const currentUser = useSelector((state) => state.userReducer);
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
         const formJson = Object.fromEntries(formData.entries());
-        const project = formJson.projects;
-        formJson.projects =[project];
+        const newTodo = {...formJson, 
+            projects:[formJson.projects], 
+            owner:currentUser._id, secret: 
+            currentUser.secret
+        };
         form.reset();
-        await dispatch(postNewTodo(formJson))
-        dispatch(fetchTodosByUserid()); // fetches from DB to bring in updated list. Might not be the most efficient way.
+        await dispatch(postNewTodo(newTodo))
+        dispatch(fetchTodosByUserid(currentUser)); // fetches from DB to bring in updated list. Might not be the most efficient way.
     };    
     return(
         <>
@@ -66,6 +70,6 @@ function AddTodoForm ({display}) {
             </form>
         </>
     )
-};
+}
 
 export default AddTodoForm;

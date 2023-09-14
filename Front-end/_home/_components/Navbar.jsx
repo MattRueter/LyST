@@ -1,6 +1,6 @@
 import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
 import PlaylistAddOutlinedIcon from '@mui/icons-material/PlaylistAddOutlined';
-import {FormControl, Select, InputLabel, Menu,Popper, Paper,MenuItem, Button,Avatar, MenuList } from '@mui/material';
+import {FormControl, Select, InputLabel, MenuItem, Avatar } from '@mui/material';
 import FilterMenu from './FilterMenu';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../../Redux/reducers/themeReducer';
@@ -46,6 +46,6 @@ function Navbar ({toggleDisplay}) {
         </nav>
         </>
     )
-};
+}
 
 export default Navbar;

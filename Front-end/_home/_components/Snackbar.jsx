@@ -24,6 +24,6 @@ function SnackBar () {
             message={newTodo + " added."}
         />
     )
-};
+}
 
 export default SnackBar

@@ -21,7 +21,7 @@ function Loading () {
         if(success){
             setMinTimeElapsed(false);
         }        
-    },[loading])
+    },[loading,success])
 
     if(failed){
         return  (
@@ -41,7 +41,7 @@ function Loading () {
             <></>
         )
     }
-};
+}
 
 
 export default Loading;

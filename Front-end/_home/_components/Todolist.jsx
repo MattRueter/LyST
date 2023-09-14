@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchTodosByUserid, fetchTodosByCriteria } from '../../../Redux/reducers/fetchTodos_reducer';
+import { fetchTodosByUserid } from '../../../Redux/reducers/fetchTodos_reducer';
 import { useEffect } from 'react';
 import Todo from './Todo';
 import { checkStatus } from '../../../CSS/muiStyles';
@@ -7,10 +7,12 @@ import { checkStatus } from '../../../CSS/muiStyles';
 function TodoList () {
   const dispatch = useDispatch();
   const state = useSelector((state) =>state.fetchTodosReducer);
+  const currentUser = useSelector((state) => state.userReducer)
+
   const todos = state.todos;
 
   useEffect(() =>{
-    dispatch(fetchTodosByUserid());
+    dispatch(fetchTodosByUserid(currentUser));
   },[]);
 
   const todoCards = todos.map((item) =>{
@@ -34,6 +36,6 @@ function TodoList () {
       </ol>
     </>
   )
-};
+}
 
 export default TodoList

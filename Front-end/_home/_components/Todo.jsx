@@ -1,21 +1,23 @@
 import { Card, CardContent, Typography,Button} from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
-import { useDispatch } from 'react-redux';
-import  {fetchTodosByUserid, deleteTodo, markTodoFinished}  from '../../../Redux/reducers/fetchTodos_reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import  {deleteTodo, markTodoFinished, markFinishedUI, deleteUI}  from '../../../Redux/reducers/fetchTodos_reducer';
 
 
 function Todo (props) {
     const {todo, projectName, priority, id, status, text} = props
     const dispatch = useDispatch();
+    const secret = useSelector((state => state.userReducer.secret))
 
-    const handleDelete = async (id) => {
-        await dispatch(deleteTodo(id));
-        dispatch(fetchTodosByUserid());
+    const handleDelete = (id) => {
+        const data ={id : id , secret : secret};
+        dispatch(deleteTodo(data));
+        dispatch(deleteUI(id))
     };
     const handleMarkFinished = async (id, status) =>{
-        const todoData = { id:id, status:status }
-        await dispatch(markTodoFinished(todoData));
-        dispatch(fetchTodosByUserid());
+        const data = { id:id, status:status, secret: secret};
+        dispatch(markTodoFinished(data));
+        dispatch(markFinishedUI(data));
     }
 
         return(
@@ -44,6 +46,6 @@ function Todo (props) {
                 </Card>
             </li>
         )
-};
+}
 
 export default Todo;
