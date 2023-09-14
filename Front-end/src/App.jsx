@@ -1,27 +1,33 @@
+import { useSelector} from 'react-redux';
 import './CSS/app.css';
 import './CSS/index.css'
 import HomePage from './Pages/_home/_pages/HomePage';
 import LoginPage from './Pages/_login/_pages/LoginPage';
-import Button from '@mui/material/Button';
-
-const isLoggedin= true;
+import DateSelector from './Pages/_home/_components/Calendar';
 
 function App() {
-  //could show login in unless user is authenticated.
-  // if authenticated render HomePage
-  if(isLoggedin){
+  const user = useSelector((state) =>state.userReducer);
+
+
+  if(user._id){
     return(
       <>
         <HomePage />
       </>
     )
-  }else{
+  }else if(user._id === null){
     return (
       <>
         <LoginPage />
       </>
     )
+  }else{
+    return(
+      <>
+        <DateSelector />
+      </>
+    )
   }
-};
+}
 
 export default App

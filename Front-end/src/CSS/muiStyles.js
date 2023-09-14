@@ -28,5 +28,37 @@ const themeSelector = ((currentTheme) =>{
     return themeLibrary[currentTheme]
 });
 
+export const progressStyle = {
+    borderRadius: "5px",
+    backgroundColor:"#a6c2dd",
+    color:"#304558",
+    position:"absolute",
+    display:"flex",
+    flexDirection: "column",
+    alignItems:"center",
+    padding:"2%",
+    margin:"10%"
+}
+
+
+//used for toggling crossing off items from list  ----------------
+export const statusText ={
+    completed:{
+        textDecorationLine: "line-through",
+    },
+    uncompleted:{
+        textDecorationLine: "none"
+    }
+}
+export const checkStatus = (item) => {
+    let text;
+    if(item.finished === true){
+        text = statusText.completed
+    }else{
+        text = statusText.uncompleted
+    }
+    return text;
+}
+//-----------------------------------------------------------------
 
 export default themeSelector;

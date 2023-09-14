@@ -1,32 +1,51 @@
 import { Card, CardContent, Typography,Button} from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { useDispatch, useSelector } from 'react-redux';
+import  {deleteTodo, markTodoFinished, markFinishedUI, deleteUI}  from '../../../Redux/reducers/todos_reducer';
 
 
-function Todo () {
-    const state = useSelector((state) =>state.fetchTodosReducer);
-    const todos = state.todos;
+function Todo (props) {
+    const {todo, projectName, priority, id, status, text} = props
+    const dispatch = useDispatch();
+    const secret = useSelector((state => state.userReducer.secret))
 
-    const todoCards = todos.map((item)=>{
+    const handleDelete = (id) => {
+        const data ={id : id , secret : secret};
+        dispatch(deleteTodo(data));
+        dispatch(deleteUI(id))
+    };
+    const handleMarkFinished = async (id, status) =>{
+        const data = { id:id, status:status, secret: secret};
+        dispatch(markTodoFinished(data));
+        dispatch(markFinishedUI(data));
+    }
+
         return(
-            <li>
+            <li key={id}>
                 <Card variant="outlined" sx={{margin:"2%"}}>
                     <CardContent>
-                        <Typography sx={{fontSize : 24}}>{item.todo}</Typography>
-                        <Typography>Project: {item.projects}</Typography>
-                        <Typography>Priority: {item.priority} </Typography>
+                        <Typography 
+                            sx={{
+                                fontSize : 24, 
+                                textDecorationLine: text.textDecorationLine
+                                }}>
+                                {todo}
+                        </Typography>
+                        <Typography 
+                            sx={text}>
+                                Project:{projectName}
+                        </Typography>
+                        <Typography 
+                            sx={text}>
+                                Priority:{priority} 
+                        </Typography>                        
                         <button>details</button>
-                        <Button>delete</Button>
-                        <Button><DoneIcon/></Button>
+                        <Button onClick={()=>handleDelete(id)}>delete</Button>
+                        <Button onClick={()=>handleMarkFinished(id, status)}><DoneIcon/></Button>
                     </CardContent>
                 </Card>
             </li>
         )
-    });
-    return(
-        <>
-        {todoCards}
-        </>
-    )
 }
+
 export default Todo;

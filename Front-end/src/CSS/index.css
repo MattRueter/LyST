@@ -14,6 +14,7 @@
 
   --background-color-primary:white;
   --background-color-secondary: #ccdbe8;
+  --background-color-modals: whitesmoke;
   --background-color-accessories: #a6c2dd;
   --box-shadow: 1px 1px 1px#98b5cd;
 }
@@ -29,7 +30,7 @@
   color:whitesmoke;
   --background-color-primary:#213547;
   --background-color-secondary: #16344c;
-  --background-color-modals: #213547;
+  --background-color-modals: #274763;
   --background-color-accessories: #add8e6;
   --box-shadow:1px 1px 1px #4f6b83;
 }
