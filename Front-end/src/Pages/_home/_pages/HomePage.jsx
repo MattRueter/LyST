@@ -37,7 +37,7 @@ function HomePage (){
                 display={addProjectDisplay}
             />
             <div id="formContainer">
-                <AddTodoForm display={addTodoFormDisplay} />
+                <AddTodoForm display={addTodoFormDisplay} toggleNewProjectDisplay={toggleNewProjectDisplay} />
                 <AddProjectForm display={addProjectDisplay} />
             </div>
             <main onClick={closeAddTodoForm}>

@@ -20,7 +20,6 @@ function FilterMenu() {
             dispatch(fetchTodosByCriteria(criteria));
         }
     };
-
     return(
         <FormControl variant="standard" sx={{width:"40%" }} size="small">
             <InputLabel sx={theme.labels}>View:</InputLabel>
@@ -46,8 +45,9 @@ function FilterMenu() {
                 
                 <InputLabel sx={theme.labels} >Project</InputLabel>                    
                     {projectList.map((item) =>{
+                        const index = projectList.findIndex((project)=>project===item);
                         return(
-                            <MenuItem key={item.index} name="Project"value= {["byproject", item]}>{item}</MenuItem>
+                            <MenuItem key={index} name="Project"value= {["byproject", item]}>{item}</MenuItem>
                         )
                     })}
                 <InputLabel sx={theme.labels} >Status:</InputLabel>

@@ -8,7 +8,7 @@ import { changeTheme } from '../../../Redux/reducers/themeReducer';
 
 
 
-function Navbar ({toggleDisplay, display, toggleNewProjectDisplay}) {
+function Navbar ({toggleDisplay, toggleNewProjectDisplay}) {
     const dispatch = useDispatch();
     const state = useSelector((state) =>state.themeReducer.theme)
     const theme = state;
