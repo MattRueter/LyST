@@ -2,18 +2,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { fetchTodosByUserid, fetchTodosByCriteria } from '../../../Redux/reducers/todos_reducer';
 
-/* 
-FilterMenu is used to fetch filterd copies of the todo list and update state in the store.
-The project and date sections can be slimmed down and dynamically rendered in the case of projects 
-a calender can replace the days of the week. *date formatting will be required first on the DB and then in the client
-to make use of date selections on the calender.
-*/
 
 function FilterMenu() {
     const dispatch = useDispatch();
-    const state = useSelector((state) => state.themeReducer);
-    const currentUser = useSelector((state) => state.userReducer)
-    const theme = state.theme;
+    const theme = useSelector((state) => state.themeReducer.theme);
+    const currentUser = useSelector((state) => state.userReducer);
+    const projectList = useSelector((state) => state.todosReducer.projects);
 
     const chooseFilter = (e) =>{
         e.preventDefault();     
@@ -26,7 +20,7 @@ function FilterMenu() {
             dispatch(fetchTodosByCriteria(criteria));
         }
     };
-   
+
     return(
         <FormControl variant="standard" sx={{width:"40%" }} size="small">
             <InputLabel sx={theme.labels}>View:</InputLabel>
@@ -50,11 +44,12 @@ function FilterMenu() {
                     <MenuItem name="Due date" value={["bydate","Saturday" ]}>Saturday</MenuItem>
                     <MenuItem name="Due date" value={["bydate","Sunday" ]}>Sunday</MenuItem>
                 
-                {/*dynamically rendered*/}
-                <InputLabel sx={theme.labels} >Project</InputLabel>
-                    <MenuItem name="Project"value= {["byproject", "languages"]}>Languages</MenuItem>
-                    <MenuItem name="Project"value= {["byproject", "chores"]}>Chores</MenuItem>
-                {/*fixed*/}
+                <InputLabel sx={theme.labels} >Project</InputLabel>                    
+                    {projectList.map((item) =>{
+                        return(
+                            <MenuItem key={item.index} name="Project"value= {["byproject", item]}>{item}</MenuItem>
+                        )
+                    })}
                 <InputLabel sx={theme.labels} >Status:</InputLabel>
                     <MenuItem name="Status" value={["bystatus", "false"]} >Uncompleted</MenuItem>
                     <MenuItem name="Status" value={["bystatus", "true"]} >Completed</MenuItem>

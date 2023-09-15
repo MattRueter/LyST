@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
+import { getProjectsList } from "../../Utils/utilities";
 
 const initialState = {
     todos:[],
@@ -8,6 +8,7 @@ const initialState = {
     failed: false,
     success:false,
     newTodoName:"",
+    projects: []
 }
 
 export const fetchTodosByUserid = createAsyncThunk(
@@ -121,12 +122,16 @@ export const todosSlice = createSlice({
             const newList = state.todos.filter((item) =>item._id !== id);
             state.todos = newList;
         },
+        addProject: (state,action) => {
+            state.projects.push(action.payload)
+        },
     },
     extraReducers: {
         [fetchTodosByUserid.fulfilled] : (state,action) =>{
             state.loading = false
             state.success = true
             state.todos = action.payload
+            state.projects = getProjectsList(state.todos);
         },
         [fetchTodosByUserid.pending] : (state,action) =>{
             state.loading = true
@@ -145,6 +150,7 @@ export const todosSlice = createSlice({
         [postNewTodo.fulfilled] : (state, action) =>{
             const newtodo = action.payload
             state.newTodoName = newtodo.todo
+            
         },
         [postNewTodo.rejected] : (state, action) =>{
             console.log("rejected. Check error handling.")
@@ -158,7 +164,8 @@ export const todosSlice = createSlice({
         [deleteTodo.fulfilled] : (state,action) =>{            
             const id = action.payload;
             const newList = state.todos.filter((item) =>item.id !== id);
-            state.todos = newList;   
+            state.todos = newList;
+     
         },
         [markTodoFinished.pending] :(state, action) => {
             console.log(`item being updated`)
@@ -167,9 +174,9 @@ export const todosSlice = createSlice({
             console.log(`rejected`)
         },
         [markTodoFinished.fulfilled] :(state, action) => {
-            console.log(`marked item as complete or incomplete.`)
+ 
         }
     }
 });
 
-export const {filterTodos, markFinishedUI, deleteUI} = todosSlice.actions
+export const {markFinishedUI, deleteUI, addProject} = todosSlice.actions

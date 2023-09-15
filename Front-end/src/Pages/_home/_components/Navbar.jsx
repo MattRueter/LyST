@@ -8,7 +8,7 @@ import { changeTheme } from '../../../Redux/reducers/themeReducer';
 
 
 
-function Navbar ({toggleDisplay}) {
+function Navbar ({toggleDisplay, display, toggleNewProjectDisplay}) {
     const dispatch = useDispatch();
     const state = useSelector((state) =>state.themeReducer.theme)
     const theme = state;
@@ -24,9 +24,10 @@ function Navbar ({toggleDisplay}) {
         <>
         <nav>            
             <div className="navSection">
-                <FilterMenu/>                          
+                <FilterMenu/>
             </div>
 
+            <button onClick={toggleNewProjectDisplay} >+ project</button>
             <button onClick={toggleDisplay}><PlaylistAddOutlinedIcon fontSize="large" /></button>
 
             <div className="navSection">                
