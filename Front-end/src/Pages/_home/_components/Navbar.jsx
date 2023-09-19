@@ -4,7 +4,7 @@ import {FormControl, Select, InputLabel, MenuItem, Avatar } from '@mui/material'
 import FilterMenu from './FilterMenu';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../../Redux/reducers/themeReducer';
-
+import { logout } from '../../../Redux/reducers/user_reducer';
 
 function Navbar ({toggleDisplay}) {
     const dispatch = useDispatch();
@@ -13,9 +13,11 @@ function Navbar ({toggleDisplay}) {
     const user = useSelector((state) => state.userReducer.username[0]);
    
     const toggleTheme = (e) => {
-        const theme = e.target.value;
-        if(theme!==""){
-            dispatch(changeTheme(theme))
+        const selectedValue = e.target.value;
+        if(selectedValue === "logout"){
+            dispatch(logout());
+        }else if(selectedValue !== ""){
+            dispatch(changeTheme(selectedValue))
         }
     };
 
