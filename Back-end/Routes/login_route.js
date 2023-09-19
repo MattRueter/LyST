@@ -3,6 +3,7 @@ import passport  from "passport";
 import db from "../data/conn.js";
 import { authMethods } from "../auth/auth.js";
 import { hashsingMethods } from "../auth/hash.js";
+import { checkIfUserExits } from "../utils/authentication_utils.js";
 
 const loginRouter = express.Router();
 const { usePassportStrategy } = authMethods;
@@ -25,14 +26,14 @@ loginRouter.post("/",
     }
 );
 
-loginRouter.post("/signup", async(req,res) =>{
+loginRouter.post("/signup", checkIfUserExits, async(req,res) =>{
     const newUserName = req.body.username;
     let newUserPassword = req.body.password;
-
     //prepar user object for DB insert
     const hashedPassword = await hashPassword(newUserPassword, 10);
     const user = { username:newUserName, password:hashedPassword };
     
+    console.log(user)
     //insert into DB
     const collection = await db.collection("users");
     const insertedUser = await collection.insertOne(user);
