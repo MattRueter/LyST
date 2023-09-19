@@ -20,7 +20,8 @@ function TodoList () {
         key={item._id}
         todo={item.todo} 
         projectName={item.projects} 
-        priority={item.priority} 
+        priority={item.priority}
+        due={item.due}
         id={item._id} 
         status={item.finished} 
         text={StatusText}/>

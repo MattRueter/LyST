@@ -131,7 +131,7 @@ export const todosSlice = createSlice({
             state.loading = false
             state.success = true
             state.todos = action.payload
-            state.projects = getProjectsList(state.todos);
+            state.projects = getProjectsList(action.payload);
         },
         [fetchTodosByUserid.pending] : (state,action) =>{
             state.loading = true

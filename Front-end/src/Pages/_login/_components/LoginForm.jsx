@@ -17,8 +17,8 @@ function LoginForm () {
             <form id="loginForm" onSubmit={handleSubmit}>
                 <input type="text" name="username"placeholder="username"></input>
                 <input type="password" name="password"placeholder="password"></input>
-                <button>Login</button>
-                <button>Signup</button>
+                <button className ={"primaryButton"}>Login</button>
+                <button className ={"primaryButton"}>Signup</button>
             </form>
         </>
     )

@@ -6,18 +6,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../../Redux/reducers/themeReducer';
 
 
-
-
-function Navbar ({toggleDisplay, toggleNewProjectDisplay}) {
+function Navbar ({toggleDisplay}) {
     const dispatch = useDispatch();
     const state = useSelector((state) =>state.themeReducer.theme)
     const theme = state;
-    const user = "M"
-  
-  
+    const user = useSelector((state) => state.userReducer.username[0]);
+   
     const toggleTheme = (e) => {
         const theme = e.target.value;
-        dispatch(changeTheme(theme))
+        if(theme!==""){
+            dispatch(changeTheme(theme))
+        }
     };
 
     return(
@@ -27,15 +26,14 @@ function Navbar ({toggleDisplay, toggleNewProjectDisplay}) {
                 <FilterMenu/>
             </div>
 
-            <button onClick={toggleNewProjectDisplay} >+ project</button>
-            <button onClick={toggleDisplay}><PlaylistAddOutlinedIcon fontSize="large" /></button>
+            <button className ={"primaryButton"} onClick={toggleDisplay}><PlaylistAddOutlinedIcon fontSize="large" /></button>
 
             <div className="navSection">                
                 <Avatar sx={{bgcolor:"lightblue"}} >{user}</Avatar>
                 <FormControl variant="standard"  size="small">
                     <InputLabel  id="demo-simple-select-label" ><SettingsTwoToneIcon sx={theme.labels}/></InputLabel>
                     <Select onChange={toggleTheme} value="">
-                        <InputLabel sx={theme.labels}>Theme:</InputLabel>
+                        <InputLabel value="" sx={theme.labels}>Theme:</InputLabel>
                         <MenuItem value="dark">Dark</MenuItem>
                         <MenuItem value="light">Light</MenuItem>
                         <MenuItem value="cherry">Cherry</MenuItem>

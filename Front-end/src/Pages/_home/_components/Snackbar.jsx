@@ -20,7 +20,7 @@ function SnackBar () {
             sx={{'& .MuiPaper-root':{backgroundColor:"#a6c2dd"}}}
             open={open}
             onClose={handleClose}
-            autoHideDuration={5000}
+            autoHideDuration={4000}
             message={newTodo + " added."}
         />
     )

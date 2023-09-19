@@ -18,7 +18,7 @@ function AddProjectForm ({display}){
         <>
             <form className={display} onSubmit={newProject}>
                 <input type="text" name="project" placeholder='new project name'></input>
-                <button type ="submit">+</button>
+                <button className ={"primaryButton"} type ="submit">+</button>
             </form>
             
         </>
