@@ -49,8 +49,8 @@ export const postNewTodo = createAsyncThunk(
     'todos/postNewTodo',
     async(newtodo,thunkAPI) => {
         const secret = {secret : newtodo.secret};
-        let {todo, priority, due, projects, owner} = newtodo 
-        const newTodoJson = JSON.stringify({todo,priority,due,projects,owner});
+        let {todo, priority, due, projects, owner, finished} = newtodo 
+        const newTodoJson = JSON.stringify({todo,priority,due,projects,owner, finished});
         const result = await fetch(`http://localhost:5000/addtodo/${newTodoJson}`, {
             method:"POST",
             headers:{
@@ -179,4 +179,4 @@ export const todosSlice = createSlice({
     }
 });
 
-export const {markFinishedUI, deleteUI, addProject} = todosSlice.actions
+export const {markFinishedUI, deleteUI, addProject, clearNewTodoName} = todosSlice.actions

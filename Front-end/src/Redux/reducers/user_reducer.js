@@ -4,7 +4,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 const initialState = {
     username: null,
     _id: null,
-    secret: null
+    secret: null,
+    exists: false,
+    loading: false,
+    success:null,
 };
 
 export const authenticateUser = createAsyncThunk(
@@ -50,17 +53,31 @@ export const userSlice = createSlice({
             state.username = user.username;
             state._id = user.id;
             state.secret = user.secret;
+            state.success =true;
+            state.loading = false;
+        },
+        [authenticateUser.pending] : (state, action ) =>{
+            state.loading = true;
+        },
+        [authenticateUser.rejected] : (state,action) =>{
+            state.loading = false;
+            state.success = false;
         },
         [signupUser.fulfilled] : (state,action) =>{
             const newUser = action.payload
-            state.username = newUser.username;
-            state._id = newUser.id;
-            state.secret = newUser.secret;
+            if(newUser.exists){
+                state.exists = true
+            }else{
+                state.username = newUser.username;
+                state._id = newUser.id;
+                state.secret = newUser.secret;
+            }
         },
         [logout.fulfilled] : (state, action) =>{
             state.username = null;
             state._id = null;
             state.secret =null;
+            state.exists = false;
         }
     }
 })
