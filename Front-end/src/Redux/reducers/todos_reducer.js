@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getProjectsList } from "../../Utils/utilities";
 import { APIKEY } from "../../../secrets";
+import { APIURL } from "../../../secrets";
 
 const initialState = {
     todos:[],
@@ -18,7 +19,7 @@ export const fetchTodosByUserid = createAsyncThunk(
         
         currentUser =JSON.stringify(currentUser)
         
-        const result = await fetch(`http://localhost:5000/gettodos/`,{
+        const result = await fetch(`${APIURL}/gettodos/`,{
         method: "POST",
         headers:{
             "Authorization": APIKEY,
@@ -36,7 +37,7 @@ export const fetchTodosByCriteria = createAsyncThunk(
     'todos/fetchTodosByCriteria',
     async(criteria, thunkAPI) => {
         const currentUser =JSON.stringify(criteria.currentUser)
-        const result = await fetch(`http://localhost:5000/gettodos/${criteria.route}/${criteria.criteria}`,{
+        const result = await fetch(`${APIURL}/gettodos/${criteria.route}/${criteria.criteria}`,{
             method: "POST",
             headers:{
                 "Authorization": APIKEY,
@@ -54,7 +55,7 @@ export const postNewTodo = createAsyncThunk(
         const secret = {secret : newtodo.secret};
         let {todo, priority, due, projects, owner, finished} = newtodo 
         const newTodoJson = JSON.stringify({todo,priority,due,projects,owner, finished});
-        const result = await fetch(`http://localhost:5000/addtodo/${newTodoJson}`, {
+        const result = await fetch(`${APIURL}/addtodo/${newTodoJson}`, {
             method:"POST",
             headers:{
                 "Authorization": APIKEY,
@@ -75,7 +76,7 @@ export const deleteTodo = createAsyncThunk(
         let secret ={secret : data.secret};
         secret = JSON.stringify(secret);
 
-        const result = await fetch(`http://localhost:5000/deletetodo/${id}`, {
+        const result = await fetch(`${APIURL}/deletetodo/${id}`, {
             method:"DELETE",
             headers:{
                 "Authorization": APIKEY,
@@ -97,7 +98,7 @@ export const markTodoFinished = createAsyncThunk(
         let secret ={secret : data.secret};
         secret = JSON.stringify(secret);
   
-        const result = await fetch(`http://localhost:5000/updatetodo/${id}/${status}`, {
+        const result = await fetch(`${APIURL}/updatetodo/${id}/${status}`, {
             method:"PUT",
             headers:{
                 "Authorization": APIKEY,

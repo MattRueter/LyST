@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { APIURL } from "../../../secrets";
 
 const initialState = {
     username: null,
@@ -13,7 +14,7 @@ const initialState = {
 export const authenticateUser = createAsyncThunk(
     'user/authenticate',
     async (user, thunkAPI) =>{
-        const result = await fetch(`http://localhost:5000/login?username=${user.username}&password=${user.password}`,{method:"POST"});
+        const result = await fetch(`${APIURL}/login?username=${user.username}&password=${user.password}`,{method:"POST"});
         const data = await result.json()
         return data 
     }
@@ -22,7 +23,7 @@ export const authenticateUser = createAsyncThunk(
 export const signupUser = createAsyncThunk(
     'user/signup',
     async(user, thunkAPI) =>{
-        const result = await fetch(`http://localhost:5000/login/signup`, {
+        const result = await fetch(`${APIURL}/login/signup`, {
             method:"POST",
             headers:{
                 "Content-type" :"application/json"
@@ -37,7 +38,7 @@ export const signupUser = createAsyncThunk(
 export const logout = createAsyncThunk(
     'user/logout',
     async() =>{
-        const result = await fetch(`http://localhost:5000/login/logout`)
+        const result = await fetch(`${APIURL}/login/logout`)
         const data = await result.json()
         return data
     }
