@@ -3,11 +3,10 @@ import './CSS/app.css';
 import './CSS/index.css'
 import HomePage from './Pages/_home/_pages/HomePage';
 import LoginPage from './Pages/_login/_pages/LoginPage';
-import DateSelector from './Pages/_home/_components/DateSelector';
 
 function App() {
   const user = useSelector((state) =>state.userReducer);
-  //const user = ""
+  const success = useSelector((state) => state.userReducer.success);
 
   if(user._id){
     return(
@@ -15,16 +14,22 @@ function App() {
         <HomePage />
       </>
     )
+  }else if(user.exists === true){
+    return(
+      <>
+        <LoginPage msg="Please choose another username." />
+      </>
+    )
+  }else if(success === false){
+    return(
+      <>
+        <LoginPage msg="Check username and password are correct." />
+      </>
+    )
   }else if(user._id === null){
     return (
       <>
-        <LoginPage />
-      </>
-    )
-  }else{
-    return(
-      <>
-        <DateSelector />
+        <LoginPage msg=""/>
       </>
     )
   }
