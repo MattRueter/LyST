@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getProjectsList } from "../../Utils/utilities";
+import { APIKEY } from "../../../secrets";
 
 const initialState = {
     todos:[],
@@ -8,7 +9,7 @@ const initialState = {
     failed: false,
     success:false,
     newTodoName:"",
-    projects: []
+    projects: [],
 }
 
 export const fetchTodosByUserid = createAsyncThunk(
@@ -20,6 +21,7 @@ export const fetchTodosByUserid = createAsyncThunk(
         const result = await fetch(`http://localhost:5000/gettodos/`,{
         method: "POST",
         headers:{
+            "Authorization": APIKEY,
             "Content-type": "application/json"
         },
         body: currentUser
@@ -37,6 +39,7 @@ export const fetchTodosByCriteria = createAsyncThunk(
         const result = await fetch(`http://localhost:5000/gettodos/${criteria.route}/${criteria.criteria}`,{
             method: "POST",
             headers:{
+                "Authorization": APIKEY,
                 "Content-type": "application/json"
             },
             body: currentUser
@@ -54,11 +57,14 @@ export const postNewTodo = createAsyncThunk(
         const result = await fetch(`http://localhost:5000/addtodo/${newTodoJson}`, {
             method:"POST",
             headers:{
+                "Authorization": APIKEY,
                 "Content-type" : "application/json"
             },
             body: JSON.stringify(secret)
         });
-        return newtodo
+        let data = await result.json()
+        data.newTodo=newtodo.todo
+        return data;
     }
 );
 
@@ -72,6 +78,7 @@ export const deleteTodo = createAsyncThunk(
         const result = await fetch(`http://localhost:5000/deletetodo/${id}`, {
             method:"DELETE",
             headers:{
+                "Authorization": APIKEY,
                 "Content-type": "application/json"
             },
             body: secret
@@ -93,6 +100,7 @@ export const markTodoFinished = createAsyncThunk(
         const result = await fetch(`http://localhost:5000/updatetodo/${id}/${status}`, {
             method:"PUT",
             headers:{
+                "Authorization": APIKEY,
                 "Content-type": "application/json"
             },
             body: secret
@@ -125,6 +133,9 @@ export const todosSlice = createSlice({
         addProject: (state,action) => {
             state.projects.push(action.payload)
         },
+        clearNewTodo: (state,action) =>{
+            state.newTodoName =""
+        }
     },
     extraReducers: {
         [fetchTodosByUserid.fulfilled] : (state,action) =>{
@@ -145,15 +156,16 @@ export const todosSlice = createSlice({
             state.todos = action.payload
         },
         [postNewTodo.pending] : (state, action) =>{
-            console.log("waiting to add to db before updating UI.")
+            console.log("Adding new todo to DB. UI will update separately.")
         },
         [postNewTodo.fulfilled] : (state, action) =>{
-            const newtodo = action.payload
-            state.newTodoName = newtodo.todo
+            const { newTodo } = action.payload
+            state.newTodoName = newTodo
             
         },
         [postNewTodo.rejected] : (state, action) =>{
-            console.log("rejected. Check error handling.")
+            console.log("rejected. Check error handling in postNewTodo action.")
+            state.newTodoName = false
         },
         [fetchTodosByCriteria.pending] : (state,action) => {
             state.loading = true
@@ -179,4 +191,4 @@ export const todosSlice = createSlice({
     }
 });
 
-export const {markFinishedUI, deleteUI, addProject, clearNewTodoName} = todosSlice.actions
+export const {markFinishedUI, deleteUI, addProject, clearNewTodo} = todosSlice.actions

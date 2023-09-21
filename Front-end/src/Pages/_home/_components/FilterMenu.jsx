@@ -54,6 +54,7 @@ function FilterMenu() {
                     <MenuItem name="Status" value={["bystatus", "false"]} >Uncompleted</MenuItem>
                     <MenuItem name="Status" value={["bystatus", "true"]} >Completed</MenuItem>
                 <InputLabel sx={theme.labels} >Date</InputLabel>
+                    <MenuItem name="date" value={["bydate", "none"]}>None</MenuItem>
                     <Calendar
                         id="selectCalendar"
                         className="calendarShowing"

@@ -9,8 +9,9 @@ function AddTodoForm ({display}) {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.userReducer);
     const projectList = useSelector((state) => state.todosReducer.projects);
+    const newTodoName = useSelector((state) => state.todosReducer.newTodoName);
     const [ value, setValue ] = useState(new Date());
-    const [ dueDate, setDueDate ] = useState("")   
+    const [ dueDate, setDueDate ] = useState("none")   
 
     function onChange (nextValue){
         setValue(nextValue)
@@ -43,11 +44,10 @@ function AddTodoForm ({display}) {
             projects:[project],
             owner:currentUser._id,
             due: dueDate,
+            finished: false,
             secret:currentUser.secret
         };
-        console.log(newTodo)
         form.reset();
-
         await dispatch(postNewTodo(newTodo))
         dispatch(fetchTodosByUserid(currentUser));
     };
@@ -56,7 +56,6 @@ function AddTodoForm ({display}) {
         <>
             <form id="addTodoForm" className={display} onSubmit={handleSubmit}>
                 <input className="inputLarge" name="todo" type="text" placeholder="new todo name"></input>
-
                 <div>
                     <Calendar 
                         name="date"
@@ -64,9 +63,6 @@ function AddTodoForm ({display}) {
                         value={value}
                         />
                 </div>
-                    
-
-
                 <div id="projectsContainer">
                     <select name="projects">
                         <option value="none">Add to existing project</option>
@@ -80,8 +76,6 @@ function AddTodoForm ({display}) {
                     <p>or add to a new project.</p>
                     <input className="inputSmall" type ="text" name="newProject" placeholder='new project name'></input>
                 </div>
-
-
                 <div>
                 <div id="priorityContainer">
                 <div>
