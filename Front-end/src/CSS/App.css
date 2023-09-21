@@ -96,15 +96,19 @@ margin: 1%;
 }
 #loginForm{
   margin:2%;
-  width:35%;
+  width:25%;
   border:1px solid rgb(216, 216, 216);
 }
 #loginForm > input{
   border: 1px solid #f9f9f9;
   margin:1%;
-  width: 50%;
+  width: 70%;
 }
 #loginForm > button{
-  width:50%;
+  width:70%;
 }
-
+@media only screen and (max-width: 800px){
+  #loginForm{
+    width:75%;
+  }
+}

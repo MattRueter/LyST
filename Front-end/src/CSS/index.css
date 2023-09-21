@@ -91,3 +91,6 @@ h1{
 .primaryButton:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+#loginButton{
+  min-width: 60%;
+}
