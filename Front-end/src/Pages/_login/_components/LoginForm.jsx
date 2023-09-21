@@ -38,8 +38,8 @@ function LoginForm () {
             <form id="loginForm" onSubmit={handleSubmit}>
                 <input type="text" name="username"placeholder="username"></input>
                 <input type="password" name="password"placeholder="password"></input>
-                <button onClick={handleClick} className ={"primaryButton"} name="login"> Login </button>
-                <button onClick={handleClick} className ={"primaryButton"} name="signup"> Signup </button>
+                <button onClick={handleClick}  className ={"primaryButton"} name="login"> Login </button>
+                <button onClick={handleClick}  className ={"primaryButton"} name="signup"> Signup </button>
             </form>
         </>
     )
