@@ -1,5 +1,6 @@
 import db from "../data/conn.js";
 const secret = process.env.SECRET;
+const serverAPI = process.env.APIKEY;
 
 //MIDDLEWARE
 export const checkSecret = (req, res, next) => {
@@ -13,6 +14,17 @@ export const checkSecret = (req, res, next) => {
         next()
     }
 };
+export function checkApikey (req, res, next) {
+    const clientAPI = req.headers.authorization;
+    let passedTest;
+    clientAPI === serverAPI? passedTest=true : passedTest=false;
+
+    if(passedTest=== true){
+        next()
+    }else{
+        res.sendStatus(403);
+    }
+}
 
 export const checkIfUserExits = async (req, res, next) =>{
     const userName = req.body.username;
@@ -20,7 +32,7 @@ export const checkIfUserExits = async (req, res, next) =>{
     const result = await collection.find({username:userName}).toArray();
 
     if(result.length >0){
-        const msg ={msg: "user exists already"}
+        const msg = { exists: true}
         res.json(msg);
     }else{
         next()

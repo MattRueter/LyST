@@ -9,7 +9,7 @@ addTodosRouter.post("/:newTodo", async (req,res) => {
 
     const collection = await db.collection(currentCollection);
     const result = await collection.insertOne(newTodo)
-
+    
     res.json(result)
 });
 
