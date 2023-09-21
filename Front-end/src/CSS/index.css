@@ -1,0 +1,96 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #304558;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  --background-color-primary:white;
+  --background-color-secondary: #cde7fd;
+  --background-color-modals: #cde7fd;
+  --background-color-accessories: #a6c2dd;
+  --inputText-placeholder-color: gray;
+  --box-shadow: 1px 1px 1px#98b5cd;
+}
+:root.light{
+  color: #304558;
+  --background-color-primary:white;
+  --background-color-secondary: #cde7fd;
+  --background-color-modals: #cde7fd;
+  --background-color-accessories: #a6c2dd;
+  --box-shadow: 1px 1px 1px#98b5cd;
+  --inputText-color: #304558;
+  --inputText-placeholder-color: gray;
+}
+:root.dark{
+  color:whitesmoke;
+  --background-color-primary:#213547;
+  --background-color-secondary: #16344c;
+  --background-color-modals: #274763;
+  --background-color-accessories: #add8e6;
+  --box-shadow:1px 1px 1px #4f6b83;
+  --inputText-color: white;
+  --inputText-placeholder-color: white;
+}
+:root.cherry{
+  color:rgb(231, 178, 178);
+  --background-color-primary:#330206;
+  --background-color-secondary: #4e1217;
+  --background-color-modals: #e44e5a;
+  --background-color-accessories: #eeadb2;
+  --box-shadow:1px 1px 1px #f55461;
+  --inputText-color: white;
+  --inputText-placeholder-color: white;
+}
+body{
+  background-color: var(--background-color-primary);
+  margin:0%;
+}
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+
+h1{
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+::placeholder{
+  color: var(--inputText-placeholder-color)
+}
+.primaryButton {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--background-color-accessories);
+  margin:1%;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+.primaryButton:hover {
+  border-color: #646cff;
+}
+.primaryButton:focus,
+.primaryButton:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+#loginButton{
+  min-width: 60%;
+}
