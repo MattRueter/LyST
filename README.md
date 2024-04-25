@@ -1,6 +1,8 @@
 # Lyst
 ## About
-A simple todo app. Originally started as a small lab to learn/practice Redux and async thunks. However I decided to turn it into a small productivity app for myself.
+A simple todo app. Originally started as a small lab to learn/practice Redux and async thunks. Also my first full stack project. However I decided to turn it into a small productivity app for myself.
+
+*This is hosted on a free tier on render...so takes a little while and then some to load. 😄
 
 ## Features
 + users can sign-up, login & logout.
